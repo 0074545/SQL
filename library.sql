@@ -1,0 +1,63 @@
+CREATE DATABASE LibraryDB;
+
+use LibraryDB;
+
+CREATE TABLE Publishers (
+PublisherID INT PRIMARY KEY,
+PublisherName VARCHAR(100),
+Address VARCHAR(200),
+Phone VARCHAR(15)
+);
+
+CREATE TABLE Authors (
+AuthorID INT PRIMARY KEY,
+FirstName VARCHAR(50),
+LastName VARCHAR(50),
+Country VARCHAR(50)
+);
+
+CREATE TABLE Books (
+BookID INT PRIMARY KEY,
+Title VARCHAR(150),
+PublishedYear INT,
+Price DECIMAL(8,2),
+PublisherID INT,
+AuthorID INT
+);
+
+CREATE TABLE Members (
+MemberID INT PRIMARY KEY,
+FirstName VARCHAR(50),
+LastName VARCHAR(50),
+Email VARCHAR(100),
+JoinDate DATE
+);
+
+CREATE TABLE Loans (
+LoanID INT PRIMARY KEY,
+BookID INT,
+MemberID INT,
+LoanDate DATE,
+ReturnDate DATE
+);
+
+ALTER TABLE Books
+ADD CONSTRAINT FK_Books_Publishers
+FOREIGN KEY (PublisherID)
+REFERENCES Publishers(PublisherID);
+
+ALTER TABLE Books
+ADD CONSTRAINT FK_Books_Authors
+FOREIGN KEY (AuthorID)
+REFERENCES Authors(AuthorID);
+
+ALTER TABLE Loans
+ADD CONSTRAINT FK_Loans_Books
+FOREIGN KEY (BookID)
+REFERENCES Books(BookID);
+
+ALTER TABLE Loans
+ADD CONSTRAINT FK_Loans_Members
+FOREIGN KEY (MemberID)
+REFERENCES Members(MemberID);
+
