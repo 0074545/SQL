@@ -99,3 +99,18 @@ set product_price=
         else product_id
     end;
 
+select * from table2 where product_id = 1;
+
+select distinct
+user_id,warranty from table2;
+
+select selling_price
+from table2
+order by selling_price desc;
+
+select selling_price
+from table2
+order by selling_price desc
+limit 2
+offset 2;
+
