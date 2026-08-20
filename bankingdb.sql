@@ -285,3 +285,120 @@ FROM Transactions
 WHERE TransactionType IN ('Deposit','Withdrawal')
 ORDER BY TransactionDate DESC;
 
+select * from customers;
+
+SELECT
+FirstName,
+UPPER(FirstName) AS UpperCaseName
+FROM customers;
+
+SELECT
+FirstName,
+LOWER(FirstName) AS LowerCaseName
+FROM customers;
+
+SELECT
+FirstName,
+LENGTH(FirstName) AS NameLength
+FROM customers;
+
+SELECT
+FirstName,
+LEFT(FirstName,3) AS Initials
+FROM customers;
+
+SELECT
+CONCAT(FirstName,' - ',LastName) AS FullName
+FROM customers;
+
+SELECT ROUND(1256.75) AS Rounded_Value;
+
+SELECT CEIL(1256.25) AS Ceiling_Value;
+
+SELECT FLOOR(1256.75) AS Floor_Value;
+
+SELECT ABS(-2500) AS Absolute_Value;
+
+SELECT MOD(25,4) AS Remainder;
+
+select * from customers;
+
+SELECT CURDATE(); 
+
+SELECT NOW();
+
+SELECT
+CustomerID,
+YEAR(DateOfBirth) AS BirthYear
+FROM customers;
+
+SELECT
+CustomerID,
+MONTH(DateOfBirth) AS BirthMonth
+FROM customers;
+
+SELECT
+CustomerID,
+DATEDIFF(CURDATE(),DateOfBirth) AS Days
+FROM customers;
+
+SELECT
+    FirstName,
+    DateOfBirth,
+    IF(YEAR(DateOfBirth) <= 1995,
+       'Adult',
+       'Young') AS Category
+FROM Customers;
+
+SELECT
+    FirstName,
+    IFNULL(Phone, 'Not Available') AS PhoneNumber
+FROM Customers;
+
+SELECT GREATEST(
+'2000-09-20',
+'1995-06-18',
+'1997-09-12',
+'1993-11-25'
+) AS LatestBirthDate;
+
+SELECT LEAST(
+'2000-09-20',
+'1995-06-18',
+'1997-09-12',
+'1993-11-25'
+) AS EarliestBirthDate;
+
+SELECT
+    FirstName,
+    NULLIF(FirstName,'Priya') AS Result
+FROM Customers;
+
+SELECT SUM(Balance) as total_balance
+FROM Accounts;
+
+SELECT AVG(Balance) AS average_balance
+FROM Accounts;
+
+SELECT MAX(Balance) AS highest_balance
+FROM Accounts;
+
+SELECT MIN(Balance) AS lowest_balance
+FROM Accounts;
+
+SELECT COUNT(*) AS total_accounts
+FROM Accounts;
+
+SELECT 
+    AccountType,
+    SUM(Balance) AS TotalBalance
+FROM Accounts
+GROUP BY AccountType;
+
+SELECT 
+    AccountType,
+    SUM(Balance) AS TotalBalance
+FROM Accounts
+GROUP BY AccountType
+HAVING SUM(Balance) > 25000;
+
