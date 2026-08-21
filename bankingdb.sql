@@ -402,3 +402,118 @@ FROM Accounts
 GROUP BY AccountType
 HAVING SUM(Balance) > 25000;
 
+Select
+    LoanID,
+    CustomerID, LoanAmount, RANK() OVER(
+        ORDER BY LoanAmount DESC
+    ) AS LoanRank
+FROM Loans;
+
+INSERT INTO Customers
+(CustomerID, FirstName, LastName, Email, Phone, DateOfBirth, AccountCreationDate)
+VALUES
+(102, 'Priya', 'Patil', 'priya@gmail.com', '9876543211', '1995-06-18', '2024-01-10'),
+(103, 'Amit', 'Kulkarni', 'amit@gmail.com', '9876543212', '1993-11-25', '2024-02-15'),
+(104, 'Sneha', 'Shinde', 'sneha@gmail.com', '9876543213', '2000-09-20', '2024-03-20'),
+(105, 'Rohan', 'Pawar', 'rohan@gmail.com', '9876543214', '1997-09-12', '2024-04-25'),
+(106, 'Anjali', 'Karve', 'anjali@gmail.com', '9876543215', '1999-05-10', '2024-05-12');
+
+INSERT INTO Branches
+(BranchID, BranchName, BranchAddress, BranchPhone)
+VALUES
+(1, 'Katraj Branch', 'Katraj, Pune', '9876500001'),
+(2, 'Kondhwa Branch', 'Kondhwa, Pune', '9876500002'),
+(3, 'Camp Branch', 'Camp, Pune', '9876500003'),
+(4, 'Swargate Branch', 'Swargate, Pune', '9876500004');
+
+INSERT INTO Accounts
+(AccountID, CustomerID, AccountType, Balance, BranchID)
+VALUES
+(202, 102, 'Current', 60000.00, 2),
+(203, 103, 'Savings', 15000.00, 1),
+(204, 104, 'Savings', 85000.00, 3),
+(205, 105, 'Current', 35000.00, 4),
+(206, 106, 'Savings', 120000.00, 2);
+
+INSERT INTO Transactions
+(TransactionID, TransactionDate, Amount, TransactionType, AccountID)
+VALUES
+(301, '2025-01-05', 10000.00, 'Deposit', 201),
+(302, '2025-01-10', 5000.00, 'Withdrawal', 201),
+(303, '2025-01-15', 20000.00, 'Deposit', 202),
+(304, '2025-02-01', 8000.00, 'Withdrawal', 202),
+(305, '2025-02-10', 15000.00, 'Deposit', 203),
+(306, '2025-02-15', 3000.00, 'Withdrawal', 203),
+(307, '2025-03-01', 25000.00, 'Deposit', 204),
+(308, '2025-03-10', 12000.00, 'Withdrawal', 205),
+(309, '2025-03-15', 50000.00, 'Deposit', 206),
+(310, '2025-03-20', 7000.00, 'Withdrawal', 206);
+
+INSERT INTO Loans
+(LoanID, LoanAmount, InterestRate, StartDate, EndDate, CustomerID)
+VALUES
+(401, 500000.00, 8.50, '2024-01-01', '2029-01-01', 101),
+(402, 750000.00, 9.00, '2024-02-01', '2030-02-01', 102),
+(403, 300000.00, 8.25, '2024-03-01', '2028-03-01', 103),
+(404, 1000000.00, 9.50, '2024-04-01', '2031-04-01', 104),
+(405, 450000.00, 8.75, '2024-05-01', '2029-05-01', 105),
+(406, 1200000.00, 10.00, '2024-06-01', '2032-06-01', 106);
+
+Select
+    LoanID,
+    CustomerID, LoanAmount, RANK() OVER(
+        ORDER BY LoanAmount DESC
+    ) AS LoanRank
+FROM Loans;
+
+SELECT
+    LoanID,
+    CustomerID,
+    LoanAmount,
+    DENSE_RANK() OVER(
+        ORDER BY LoanAmount DESC
+    ) AS DenseRank
+FROM Loans;
+
+SELECT
+    LoanID,
+    CustomerID,
+    LoanAmount,
+    ROW_NUMBER() OVER(
+        ORDER BY LoanAmount DESC
+    ) AS RowNumber
+FROM Loans;
+
+SELECT
+    LoanID,
+    CustomerID,
+    LoanAmount,
+    ROW_NUMBER() OVER(
+        PARTITION BY CustomerID
+        ORDER BY LoanAmount DESC
+    ) AS RowNum
+FROM Loans;
+
+SELECT
+    LoanID, CustomerID,LoanAmount,
+    SUM(LoanAmount) OVER(
+        ORDER BY LoanAmount DESC
+    ) AS RunningTotal
+FROM Loans;
+
+SELECT
+    LoanID,
+    CustomerID,
+    LoanAmount,
+    LAG(LoanAmount) OVER(
+        ORDER BY LoanAmount DESC
+    ) AS PreviousLoanAmount
+FROM Loans;
+
+SELECT
+    LoanID, CustomerID, LoanAmount,
+    LEAD(LoanAmount) OVER(
+        ORDER BY LoanAmount DESC
+    ) AS NextLoanAmount
+FROM Loans;
+
